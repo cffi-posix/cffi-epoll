@@ -2,8 +2,29 @@
 (in-package :common-lisp)
 
 (defpackage :cffi-epoll
-  (:use :common-lisp :cffi :cffi-errno)
+  (:nicknames :epoll)
+  (:use
+   :cffi
+   :common-lisp
+   :errno)
+  (:shadow
+   #:mod)
   (:export
    #:create
+   #:with
    #:ctl
-   #:wait))
+   #:add
+   #:mod
+   #:del
+   #:wait
+   #:+ctl-add+
+   #:+ctl-mod+
+   #:+ctl-del+
+   #:+in+
+   #:+out+
+   #:+rdhup+
+   #:+pri+
+   #:+err+
+   #:+hup+
+   #:+et+
+   #:+exclusive+))
