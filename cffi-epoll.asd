@@ -8,7 +8,7 @@
 
 (defsystem "cffi-epoll"
   :defsystem-depends-on ("cffi-grovel")
-  :depends-on ("cffi" "cffi-errno")
+  :depends-on ("cffi" "cffi-errno" "cffi-unistd")
   :components
   ((:file "package")
    (:cffi-grovel-file "grovel-epoll" :depends-on ("package"))
