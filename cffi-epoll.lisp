@@ -12,7 +12,7 @@
 
 (defmacro with ((fdvar &optional (size 10)) &body body)
   (let ((fd (gensym "FD-")))
-    `(let ((,fd (epoll-create ,size)))
+    `(let ((,fd (create ,size)))
        (unwind-protect (let ((,fdvar ,fd)) ,@body)
 	 (unistd:close ,fd)))))
 
