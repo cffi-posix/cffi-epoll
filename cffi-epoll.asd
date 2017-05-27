@@ -6,7 +6,11 @@
 
 (in-package :cffi-epoll.system)
 
-(defsystem "cffi-epoll"
+(defsystem :cffi-epoll
+  :name "cffi-epoll"
+  :author "Thomas de Grivel <thoxdg@gmail.com>"
+  :version "0.1"
+  :description "Common Lisp wrapper for Linux epoll syscall"
   :defsystem-depends-on ("cffi-grovel")
   :depends-on ("cffi" "cffi-errno" "cffi-unistd")
   :components
