@@ -77,12 +77,8 @@
        :data-u32 data-u32
        :data-u64 data-u64))
 
-(defun del (epfd fd events &key data-ptr data-fd data-u32 data-u64)
-  (ctl epfd +ctl-del+ fd events
-       :data-ptr data-ptr
-       :data-fd  data-fd
-       :data-u32 data-u32
-       :data-u64 data-u64))
+(defun del (epfd fd)
+  (ctl epfd +ctl-del+ fd 0))
 
 (defcfun ("epoll_wait" c-epoll-wait) :int
   (epfd :int)
