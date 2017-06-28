@@ -35,3 +35,13 @@
 (constant (+hup+       "EPOLLHUP"))
 (constant (+et+        "EPOLLET"))
 (constant (+exclusive+ "EPOLLEXCLUSIVE"))
+
+(cunion epoll-data "union epoll_data"
+  (ptr "ptr" :type :pointer)
+  (fd "fd" :type :int)
+  (u32 "u32" :type uint32-t)
+  (u64 "u64" :type uint64-t))
+
+(cstruct epoll-event "struct epoll_event"
+  (events "events" :type uint32-t)
+  (data "data" :type (:union epoll-data)))

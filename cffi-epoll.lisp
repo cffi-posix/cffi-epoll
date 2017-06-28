@@ -33,16 +33,6 @@
        (unwind-protect (let ((,fdvar ,fd)) ,@body)
          (unistd:close ,fd)))))
 
-(defcunion epoll-data
-  (ptr :pointer)
-  (fd :int)
-  (u32 uint32-t)
-  (u64 uint64-t))
-
-(defcstruct epoll-event
-  (events uint32-t)
-  (data (:union epoll-data)))
-
 (defcfun ("epoll_ctl" c-epoll-ctl) :int
   (epfd :int)
   (op :int)
