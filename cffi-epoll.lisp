@@ -88,12 +88,21 @@
         (g-max-events (gensym "MAX-EVENTS-")))
     `(let ((,g-max-events ,max-events))
        (with-foreign-object (,events '(:struct epoll-event) ,g-max-events)
-         (let ((,n (c-epoll-wait ,epfd ,events ,g-max-events ,timeout)))
-           (when (< ,n 0)
-             (error-errno "epoll_wait"))
-           (dotimes (,i ,n)
-             (let* ((,evt (mem-aptr ,events '(:struct epoll-event) ,i))
-                    (,events-var (foreign-slot-value ,evt '(:struct epoll-event) 'events))
-                    (,e-data (foreign-slot-value ,evt '(:struct epoll-event) 'data))
-                    (,fd-var (foreign-slot-value ,e-data '(:union epoll-data) 'fd)))
-               ,@body)))))))
+         (loop
+            (let ((,n (c-epoll-wait ,epfd ,events ,g-max-events ,timeout)))
+              (when (< ,n 0)
+                (handler-case
+                    (error-errno "epoll_wait")
+                  (errno-error (condition)
+                    (when (= +eintr+ (errno-error-errno condition))
+                      (continue)))))
+              (dotimes (,i ,n)
+                (let* ((,evt (mem-aptr ,events '(:struct epoll-event) ,i))
+                       (,events-var (foreign-slot-value
+                                     ,evt '(:struct epoll-event) 'events))
+                       (,e-data (foreign-slot-value
+                                 ,evt '(:struct epoll-event) 'data))
+                       (,fd-var (foreign-slot-value
+                                 ,e-data '(:union epoll-data) 'fd)))
+                  ,@body))
+              (return)))))))
