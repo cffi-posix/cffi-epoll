@@ -78,7 +78,7 @@
 
 (defmacro wait ((events-var fd-var epfd &optional
                             (max-events 1024)
-                            (timeout -1))
+                            (timeout 60000))
                 &body body)
   (let ((events (gensym "EVENTS-"))
         (evt (gensym "EVT-"))
