@@ -27,21 +27,25 @@
   (:shadow
    #:mod)
   (:export
-   #:create
-   #:with
-   #:ctl
-   #:add
-   #:mod
-   #:del
-   #:wait
    #:+ctl-add+
-   #:+ctl-mod+
    #:+ctl-del+
+   #:+ctl-mod+
+   #:+err+
+   #:+et+
+   #:+exclusive+
+   #:+hup+
    #:+in+
    #:+out+
-   #:+rdhup+
    #:+pri+
-   #:+err+
-   #:+hup+
-   #:+et+
-   #:+exclusive+))
+   #:+rdhup+
+   #:add
+   #:c-epoll-create
+   #:c-epoll-ctl
+   #:c-epoll-wait
+   #:create
+   #:ctl
+   #:del
+   #:mod
+   #:wait
+   #:with
+   ))
